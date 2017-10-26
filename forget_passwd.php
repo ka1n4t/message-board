@@ -8,7 +8,7 @@
 	
 	
 	do_html_header("Don't worry");
-
+	// display_current_user();
 	display_forget_passwd_form();
 
 	do_html_footer();

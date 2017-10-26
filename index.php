@@ -4,6 +4,8 @@
 
 	do_html_header("explore the universe");
 	
+	// display_current_user();
+
 	do_tool_bar();
 
 	do_tool_bar_end();

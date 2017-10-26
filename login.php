@@ -4,6 +4,8 @@
 
 	do_html_header("login");
 
+	// display_current_user();
+
 	@$username = $_POST['username'];
 	@$password = $_POST['password'];
 
@@ -15,8 +17,7 @@
 		exit;
 	}
 
-	// if(isset($username)&&isset($password)) {
-	if(isset($username) && isset($password)) {
+	if(isset($username) && ($username != "") && isset($password) && ($password != "")) {
 		//处理输入的用户名和密码
 		$conn = db_connect();
 		$query = "select * from tb_user where usernc = '$username' and userpwd = '$password'";

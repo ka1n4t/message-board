@@ -1,5 +1,7 @@
 <?php
 	
+	require_once("include_fns.php");
+
 	function do_html_header($title = '') {
 
 		?>
@@ -46,6 +48,15 @@
 						bottom: 10%;
 						background-color: grey;
 					}
+					.user_tip {
+						width: 200px;
+						background: #6aa0ff;
+						position: absolute;
+						top: 10px;
+						right: 0;
+						display: inline-block;
+						border: solid 1px #111;
+					}
 					#tool_bar {
 						height: 100%;
 						width: 25%;
@@ -68,7 +79,7 @@
 						bottom: 0px;
 						width: 100%;
 						height: 10%;
-						background-color: pink;
+						background-color: #6aa0ff;
 					}
 					.nav {
 						display: inline-block;
@@ -83,15 +94,18 @@
 					}
 					.login_form {
 						width: 400px;
-						height: 300px;
+						height: 400px;
 						border: solid 1px #111;
-						background-color: blue;
+						background-color: #6aa0ff;
 						position: relative;
 						margin-left: auto;
 						margin-right: auto;
 						top: 50px;
 						/*top: 50px;
 						left: 30px;*/
+					}
+					.tip {
+						position: absolute;
 					}
 				</style>
 			</head>
@@ -103,9 +117,41 @@
 						<div class="nav" onclick="window.location.href='http://www.baidu.com'"	>发表留言</div>
 						<div class="nav" onclick="window.location.href='http://www.baidu.com'"	>查看留言</div>
 						<div class="nav" onclick="window.location.href='http://www.baidu.com'"	>查询留言</div>
-						<div class="nav" onclick="window.location.href='login.php'"	>用户登录</div>
-						<div class="nav" onclick="window.location.href='logout.php'"	>注销登录</div>
+						<!-- 登录按钮换成了右上角的tip -->
+						<!-- <div class="nav" onclick="window.location.href='login.php'"	>用户登录</div>
+						<div class="nav" onclick="window.location.href='logout.php'"	>注销登录</div> -->
 					</div>
+		<?php
+			display_current_user();
+	}
+
+	function display_current_user() {
+		?>
+			<!-- <div class="user_tip"> -->
+			<?php
+				if(isset($_SESSION['valid_user']) && ($_SESSION['valid_user'] != "")) {
+					$conn = db_connect();
+					$query = "select usernc from tb_user where id=".$_SESSION['valid_user'];
+					$result = $conn->query($query);
+
+					if(!$result) {
+						echo "error: could not load your name";
+					}
+
+					$username = $result->fetch_row()[0];
+					?>
+					<div class="user_tip">当前用户为：<?php echo $username ?>
+						<br>
+						<a href="logout.php">注销</a>
+					</div>
+					<?php
+				} else {
+					?>
+					<div class="user_tip">当前未登录&nbsp;<a href="login.php">登录</a></div>
+					<?php
+				}
+			?>
+			<!-- </div>	 -->
 		<?php
 	}
 
@@ -153,17 +199,31 @@
 		?>
 		<div class="content_outer">
 			<div class="login_form">
-				<form method="post" action="register.php">
+				<form method="post" action="register.php" onsubmit="return check_valid(this)">
 					<br>
 					<p>用户注册</p>
-					用户名：
+					*用户名：&nbsp;&nbsp;
 					<input type="input" name="username">
 					<br>
-					密&nbsp;&nbsp;&nbsp;码：
-					<input type="input" name="password1">
+					*密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
+					<input type="password" name="password1">
 					<br>
-					再次输入密码：
-					<input type="input" name="password2">
+					*再次输入密码：
+					<input type="password" name="password2">
+					<br>
+					真实姓名：
+					<input type="input" name="truename" value="笨蛋">
+					<br>
+					性&nbsp;&nbsp;&nbsp;&nbsp;别：
+					<select name="sex"><option value="m">男</option><option value="w">女</option></select>
+					<br>
+					E-mail地址：&nbsp;&nbsp;
+					<input type="email" name="email" value="123456@gmail.com">
+					<br>
+					<!-- 头像选择： -->
+					联系地址：&nbsp;&nbsp;
+					<input type="text" name="address" value="加州硅谷">
+					<br>
 					<div>&nbsp;</div>
 					<input  type="submit" name="submit" value="Submit">
 				</form>

@@ -4,7 +4,8 @@
 
 	do_html_header("Log out");
 
-
+	// display_current_user();
+	
 	if(!isset($_SESSION['valid_user']) || ($_SESSION['valid_user'] == '')) {
 		echo "<div>您还未登录</div>";
 		echo "<div><a href=\"login.php\">登录</a></div>";
