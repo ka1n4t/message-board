@@ -48,6 +48,67 @@
 						bottom: 10%;
 						background-color: grey;
 					}
+					.real_comment {
+						width: 1000px;
+						height: 170px;
+						position: relative;
+						margin-left: auto;
+						margin-right: auto;
+						padding: 10px;
+						top: 40px;
+						border: solid 1px #111;
+					}
+					.comment_title {
+						width:900px;
+						height: 50px;
+						position: relative;
+						margin:auto;
+						border: solid 1px #111;
+					}
+					.comment_body {
+						width:900px;
+						height: 120px;
+						position: relative;
+						margin:auto;
+						border: solid 1px #111;
+					}
+					.comment_text {
+						width:800px;
+						height: 70%;
+						position: relative;
+						left: 30px;
+						top:10px;
+						text-align: left;
+						border: solid 1px #111;
+					}
+					.comment_tip {
+						width: 200px;
+						font-size: 15px;
+						position: absolute;
+						right: 60px;
+						bottom: 12px;
+					}
+					#index {
+						width: 900px;
+						height: 50px;
+						position: relative;
+						top: 100px;
+						margin: auto;
+						border: solid 1px #111;
+					}
+					.index_item {
+						width: 50px;
+						height: 30px;
+						display: inline-block;
+						margin: auto;
+						position: relative;
+						top: 10px;
+						border: solid 1px #111;
+					}
+					.index_item a {
+						text-decoration: none;
+						color: #000;
+					}
 					.user_tip {
 						width: 200px;
 						background: #6aa0ff;
@@ -66,7 +127,7 @@
 						display: inline-block;
 					}
 					#content_main {
-						height: 100%;
+						height: 80%;
 						width: 75%;
 						background-color: green;
 						position: absolute;
@@ -107,6 +168,11 @@
 					.tip {
 						position: absolute;
 					}
+					textarea {
+						 width:200px;
+						 height:100px;
+						 resize:none;
+					}
 				</style>
 			</head>
 			<body>
@@ -114,8 +180,8 @@
 					<div id="header">
 						<div id="title">welcome to un1verses bbs</div>
 						<div class="nav" onclick="window.location.href='index.php'"	>首页</div>
-						<div class="nav" onclick="window.location.href='http://www.baidu.com'"	>发表留言</div>
-						<div class="nav" onclick="window.location.href='http://www.baidu.com'"	>查看留言</div>
+						<div class="nav" onclick="window.location.href='saveleaveword.php'"	>发表留言</div>
+						<!-- <div class="nav" onclick="window.location.href='http://www.baidu.com'"	>查看留言</div> -->
 						<div class="nav" onclick="window.location.href='http://www.baidu.com'"	>查询留言</div>
 						<!-- 登录按钮换成了右上角的tip -->
 						<!-- <div class="nav" onclick="window.location.href='login.php'"	>用户登录</div>
@@ -167,7 +233,7 @@
 
 	function do_tool_bar_end() {
 		?>
-		</div>
+		</div></div><!-- 第二个闭合标签被index.php带走了 -->
 		<?php
 	}
 
@@ -255,16 +321,58 @@
 		<?php
 	}
 
-	function do_content() {
+	function display_leaveword_form() {
 		?>
-			<div id="content_main">
-				content_main
-				<!-- 留言记录 -->
-
+		<div class="content_outer">
+			<div>
+				<form action="saveleaveword.php" method="post">
+					<br>
+					<br>
+					留言标题：<input type="text" name="title">
+					<br>
+					<br>
+					留言内容：<textarea name="comment"></textarea>
+					<br>
+					<br>
+					<input type="submit" name="submit" value="提交">
+				</form>
 			</div>
 		</div>
 		<?php
 	}
+
+	// function display_comment_frame() {
+	// 	?>
+	<!-- // 	<div></div> -->
+	 	<?php
+	// }
+
+	// function do_content() {
+		?>
+			<!-- <div id="content_main"> -->
+				<!-- 留言记录 -->
+			<!-- 	<div class="real_comment">
+					<div class="comment_title">comment_title1</div>
+					<div class="comment_body">comment_body1</div>
+				</div>
+				<div class="real_comment">
+					<div class="comment_title">comment_title2</div>
+					<div class="comment_body">comment_body2</div>
+				</div>
+				<div class="real_comment">
+					<div class="comment_title">comment_title3</div>
+					<div class="comment_body">comment_body3</div>
+				</div>
+ -->
+
+				<!-- 页码 -->
+<!-- 				<div>
+					
+				</div>
+			</div>
+		</div> -->
+		<?php
+//	}
 
 	function do_html_footer() {
 		?>
